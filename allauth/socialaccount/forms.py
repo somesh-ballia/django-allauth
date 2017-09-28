@@ -7,6 +7,8 @@ from allauth.account.forms import BaseSignupForm
 from . import app_settings, signals
 from .adapter import get_adapter
 from .models import SocialAccount
+from django.conf import settings
+from . import SignupForm
 
 
 class SignupForm(BaseSignupForm):
@@ -62,3 +64,11 @@ class DisconnectForm(forms.Form):
         signals.social_account_removed.send(sender=SocialAccount,
                                             request=self.request,
                                             socialaccount=account)
+
+
+class MySignupForm(SignupForm):
+    def clean_email(self):
+        data = self.cleaned_data['email']
+        if data.split('@')[1].lower() == settings.ALLOWED_DOMAIN:
+            raise forms.ValidationError(_(u'domena!'))
+        return data
