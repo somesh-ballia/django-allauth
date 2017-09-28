@@ -47,7 +47,7 @@ class DefaultSocialAccountAdapter(object):
         handlers may be active and are executed in undetermined order.
         """
         email = user_email(sociallogin.user)
-        if email.split('@')[1].lower() == settings.ALLOWED_DOMAIN:
+        if email.split('@')[1].lower() != settings.ALLOWED_DOMAIN:
             raise ImmediateHttpResponse(_(u'Emails with @grabtaxi.com domain is allowed'))
         pass
 
