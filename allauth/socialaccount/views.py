@@ -18,8 +18,6 @@ from ..utils import get_form_class
 from .adapter import get_adapter
 from .forms import DisconnectForm, SignupForm
 from .models import SocialAccount, SocialLogin
-from allauth.socialaccount.views import SignupView
-from .forms import MySignupForm
 
 
 class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
@@ -67,7 +65,7 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin,
         return reverse(connections)
 
 
-signup = SignupView.as_view(form_class=MySignupForm)
+signup = SignupView.as_view()
 
 
 class LoginCancelledView(TemplateView):
