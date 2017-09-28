@@ -4,6 +4,7 @@ from allauth.account.models import EmailAddress
 from allauth.socialaccount import app_settings
 
 from ..adapter import get_adapter
+from allauth.socialaccount import forms
 
 
 class AuthProcess(object):
@@ -143,6 +144,10 @@ class Provider(object):
         if verified_email:
             for address in addresses:
                 address.verified = True
+
+        # domain check
+        if email.split('@')[1].lower() != settings.ALLOWED_DOMAIN:
+            raise forms.ValidationError(_(u'domena!'))
 
     def extract_email_addresses(self, data):
         """
