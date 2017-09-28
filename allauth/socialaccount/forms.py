@@ -7,6 +7,7 @@ from allauth.account.forms import BaseSignupForm
 from . import app_settings, signals
 from .adapter import get_adapter
 from .models import SocialAccount
+from django.conf import settings
 
 
 class SignupForm(BaseSignupForm):
@@ -29,6 +30,10 @@ class SignupForm(BaseSignupForm):
 
     def validate_unique_email(self, value):
         try:
+            email = self.cleaned_data['email']
+            if email.split('@')[1].lower() != settings.ALLOWED_DOMAIN:
+                raise forms.ValidationError(_(u'Only @grabtaxi.com emails can be used'))
+
             return super(SignupForm, self).validate_unique_email(value)
         except forms.ValidationError:
             raise forms.ValidationError(
