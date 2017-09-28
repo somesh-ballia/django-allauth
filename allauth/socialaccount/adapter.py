@@ -2,6 +2,8 @@ from __future__ import absolute_import
 
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
+from ..exceptions import ImmediateHttpResponse
 
 from . import app_settings
 from ..account import app_settings as account_settings
@@ -44,6 +46,9 @@ class DefaultSocialAccountAdapter(object):
         e.g. the flow from within a signal handler is bad -- multiple
         handlers may be active and are executed in undetermined order.
         """
+        email = user_email(sociallogin.user)
+        if email.split('@')[1].lower() == settings.ALLOWED_DOMAIN:
+            raise ImmediateHttpResponse(_(u'Emails with @grabtaxi.com domain is allowed'))
         pass
 
     def authentication_error(self,
