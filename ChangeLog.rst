@@ -1,3 +1,11 @@
+0.34.0 (2017-09-29)
+*******************
+
+Note worthy changes
+-------------------
+
+- added whitelising on socialOauth (ALLOWED_DOMAIN='xxx') 
+
 0.33.0 (2017-08-20)
 *******************
 
