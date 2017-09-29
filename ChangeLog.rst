@@ -4,7 +4,7 @@
 Note worthy changes
 -------------------
 
-- added whitelising on socialOauth (ALLOWED_DOMAIN='xxx') 
+- added whitelising on socialOauth (ALLOWED_DOMAIN='xxx')
 
 0.33.0 (2017-08-20)
 *******************
